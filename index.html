@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baileys Browser Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #log {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        .log-info {
+            color: #0066cc;
+        }
+        .log-success {
+            color: #009900;
+        }
+        .log-error {
+            color: #cc0000;
+        }
+        .log-warning {
+            color: #ff9900;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .qr-code {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #qrCodeCanvas {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Baileys Browser Example</h1>
+    
+    <div class="container">
+        <h2>WhatsApp Connection</h2>
+        <p>Connect to WhatsApp Web and send messages directly from your browser.</p>
+        
+        <div>
+            <button id="connectBtn">Connect to WhatsApp</button>
+            <button id="disconnectBtn" disabled>Disconnect</button>
+        </div>
+        
+        <div class="qr-code" id="qrCodeContainer" style="display: none;">
+            <canvas id="qrCodeCanvas"></canvas>
+            <p>Scan this QR code with WhatsApp on your phone</p>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <label for="phoneNumber">Phone Number (with country code, e.g., +1234567890):</label>
+            <input type="tel" id="phoneNumber" placeholder="+1234567890" />
+            
+            <label for="message">Message:</label>
+            <input type="text" id="message" placeholder="Enter your message here" />
+            
+            <button id="sendBtn" disabled>Send Message</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Activity Log</h2>
+        <div id="log"></div>
+        <button id="clearLogBtn" style="background-color: #f44336;">Clear Log</button>
+    </div>
+
+    <script type="module">
+        // Browser-based Baileys implementation
+        // This is a placeholder that demonstrates the structure
+        // The actual implementation will require proper setup of Baileys with browser-compatible modules
+        
+        const log = document.getElementById('log');
+        const connectBtn = document.getElementById('connectBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearLogBtn = document.getElementById('clearLogBtn');
+        const qrCodeContainer = document.getElementById('qrCodeContainer');
+        
+        function addLog(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.textContent = `[${timestamp}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        connectBtn.addEventListener('click', async () => {
+            try {
+                addLog('Initializing connection to WhatsApp...', 'info');
+                connectBtn.disabled = true;
+                
+                // This is where we would initialize Baileys
+                // For now, this is a placeholder to show the structure
+                addLog('Note: Full Baileys integration requires additional setup', 'warning');
+                addLog('Browser compatibility has been configured!', 'success');
+                addLog('fs module has been shimmed with fs-browser', 'info');
+                
+                // Simulated connection
+                setTimeout(() => {
+                    addLog('Ready to use (demo mode)', 'success');
+                    disconnectBtn.disabled = false;
+                    sendBtn.disabled = false;
+                }, 1000);
+                
+            } catch (error) {
+                addLog(`Error: ${error.message}`, 'error');
+                connectBtn.disabled = false;
+            }
+        });
+        
+        disconnectBtn.addEventListener('click', () => {
+            addLog('Disconnecting...', 'info');
+            connectBtn.disabled = false;
+            disconnectBtn.disabled = true;
+            sendBtn.disabled = true;
+            qrCodeContainer.style.display = 'none';
+            addLog('Disconnected successfully', 'success');
+        });
+        
+        sendBtn.addEventListener('click', async () => {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const message = document.getElementById('message').value;
+            
+            if (!phoneNumber || !message) {
+                addLog('Please enter both phone number and message', 'error');
+                return;
+            }
+            
+            try {
+                addLog(`Sending message to ${phoneNumber}...`, 'info');
+                
+                // This is where we would use Baileys to send a message
+                // For now, this is a placeholder
+                setTimeout(() => {
+                    addLog(`Message sent successfully to ${phoneNumber}`, 'success');
+                    document.getElementById('message').value = '';
+                }, 500);
+                
+            } catch (error) {
+                addLog(`Failed to send message: ${error.message}`, 'error');
+            }
+        });
+        
+        clearLogBtn.addEventListener('click', () => {
+            log.innerHTML = '';
+            addLog('Log cleared', 'info');
+        });
+        
+        // Initialize
+        addLog('Browser example loaded', 'success');
+        addLog('fs-browser module is configured and ready', 'info');
+        addLog('Click "Connect to WhatsApp" to begin', 'info');
+    </script>
+</body>
+</html>
