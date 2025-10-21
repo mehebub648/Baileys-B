@@ -9,6 +9,8 @@ baileys_store*.json
 .env
 .env.local
 .env.*.local
+dist
+index.html.backup
 browser-messages.json
 browser-token.json
 decoded-ws.json

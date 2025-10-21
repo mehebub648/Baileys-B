@@ -21,6 +21,9 @@
     "engine-requirements.js"
   ],
   "scripts": {
+    "dev": "vite",
+    "vite:build": "vite build",
+    "preview": "vite preview",
     "build:all": "npm run build && npm run build:docs",
     "build:docs": "typedoc",
     "build": "tsc -P tsconfig.build.json && tsc-esm-fix --tsconfig=tsconfig.build.json --ext=.js",
@@ -84,7 +87,9 @@
     "tsx": "^4.20.3",
     "typedoc": "^0.27.9",
     "typedoc-plugin-markdown": "4.4.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vite": "^7.1.11",
+    "vite-plugin-node-polyfills": "^0.24.0"
   },
   "peerDependencies": {
     "audio-decode": "^2.1.3",
