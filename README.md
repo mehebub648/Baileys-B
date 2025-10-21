@@ -2,6 +2,9 @@
 
 <div align='center'>Baileys is a WebSockets-based TypeScript library for interacting with the WhatsApp Web API.</div>
 
+> [!TIP]
+> **NEW: Browser-Compatible MongoDB Support!** 🎉  
+> This fork now supports MongoDB for authentication state storage, making it suitable for browser-based applications where file system access is not available. Check out the [MongoDB Usage](#using-mongodb-browser-compatible) section and open `index.html` for a web-based demo!
 
 > [!CAUTION]
 > NOTICE OF BREAKING CHANGE.
@@ -57,6 +60,13 @@ To run the example script, download or clone the repo and then type the followin
 1. ``` cd path/to/Baileys ```
 2. ``` yarn ```
 3. ``` yarn example ```
+
+### MongoDB Example (Browser Compatible)
+
+For a browser-compatible setup using MongoDB:
+1. Open `index.html` in your browser for an interactive web demo
+2. Or run the Node.js example: ``` yarn example:mongodb ```
+3. Make sure MongoDB is running and accessible
 
 ## Install
 
@@ -292,6 +302,8 @@ const sock = makeWASocket({
 
 You obviously don't want to keep scanning the QR code every time you want to connect. 
 
+### Using File System (Node.js)
+
 So, you can load the credentials to log back in:
 ```ts
 import makeWASocket, { useMultiFileAuthState } from '@whiskeysockets/baileys'
@@ -306,11 +318,37 @@ const sock = makeWASocket({ auth: state })
 sock.ev.on('creds.update', saveCreds)
 ```
 
+### Using MongoDB (Browser Compatible)
+
+For browser-based applications or when you want to avoid file system dependencies, use MongoDB:
+
+```ts
+import makeWASocket, { useMongoDBAuthState } from '@whiskeysockets/baileys'
+
+// MongoDB connection URI
+const mongoUri = 'mongodb://localhost:27017/baileys'
+
+// Optional: Session ID for multi-account support
+const sessionId = 'default'
+
+const { state, saveCreds } = await useMongoDBAuthState(mongoUri, sessionId)
+
+// will use the given state to connect
+// so if valid credentials are available -- it'll connect without QR
+const sock = makeWASocket({ auth: state })
+
+// this will be called as soon as the credentials are updated
+sock.ev.on('creds.update', saveCreds)
+```
+
+> [!TIP]
+> A web-based demo is available at `index.html` in the root directory. Open it in your browser to configure MongoDB connection and manage sessions.
+
 > [!IMPORTANT]
-> `useMultiFileAuthState` is a utility function to help save the auth state in a single folder, this function serves as a good guide to help write auth & key states for SQL/no-SQL databases, which I would recommend in any production grade system.
+> `useMultiFileAuthState` is a utility function to help save the auth state in a single folder. `useMongoDBAuthState` provides the same functionality but stores data in MongoDB instead, making it suitable for browser environments and scalable deployments.
 
 > [!NOTE]
-> When a message is received/sent, due to signal sessions needing updating, the auth keys (`authState.keys`) will update. Whenever that happens, you must save the updated keys (`authState.keys.set()` is called). Not doing so will prevent your messages from reaching the recipient & cause other unexpected consequences. The `useMultiFileAuthState` function automatically takes care of that, but for any other serious implementation -- you will need to be very careful with the key state management.
+> When a message is received/sent, due to signal sessions needing updating, the auth keys (`authState.keys`) will update. Whenever that happens, you must save the updated keys (`authState.keys.set()` is called). Not doing so will prevent your messages from reaching the recipient & cause other unexpected consequences. Both `useMultiFileAuthState` and `useMongoDBAuthState` automatically take care of that, but for any other serious implementation -- you will need to be very careful with the key state management.
 
 ## Handling Events
 
