@@ -20,3 +20,5 @@ TestData
 wa-logs.txt
 coverage
 dist
+package-lock.json
+yarn.lock
