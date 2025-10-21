@@ -2,6 +2,9 @@
 
 <div align='center'>Baileys is a WebSockets-based TypeScript library for interacting with the WhatsApp Web API.</div>
 
+> [!TIP]
+> **NEW: Browser-Compatible MongoDB Support!** 🎉  
+> This fork now supports MongoDB for authentication state storage, making it suitable for browser-based applications where file system access is not available. Check out the [MongoDB Usage](#using-mongodb-browser-compatible) section and open `index.html` for a web-based demo!
 
 > [!CAUTION]
 > NOTICE OF BREAKING CHANGE.
@@ -57,6 +60,13 @@ To run the example script, download or clone the repo and then type the followin
 1. ``` cd path/to/Baileys ```
 2. ``` yarn ```
 3. ``` yarn example ```
+
+### MongoDB Example (Browser Compatible)
+
+For a browser-compatible setup using MongoDB:
+1. Open `index.html` in your browser for an interactive web demo
+2. Or run the Node.js example: ``` yarn example:mongodb ```
+3. Make sure MongoDB is running and accessible
 
 ## Install
 
