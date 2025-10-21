@@ -75,6 +75,46 @@ Then import your code using:
 import makeWASocket from '@whiskeysockets/baileys'
 ```
 
+## Browser Compatibility 🌐
+
+Baileys now supports running in browser environments! This allows you to build web applications that can connect to WhatsApp Web directly from the browser.
+
+### Quick Start
+
+Run the development server:
+```bash
+npm run dev
+```
+
+Visit http://localhost:5173/ to see the browser example.
+
+Build for production:
+```bash
+npm run build:browser
+```
+
+### Features
+
+- ✅ File system operations shimmed with browser-compatible `fs-browser` module
+- ✅ Uses File System Access API for file operations
+- ✅ Fallback support for older browsers
+- ✅ Vite-powered development and bundling
+- ✅ Full test suite for browser compatibility
+
+### Screenshots
+
+**Browser Example Interface:**
+
+![Browser Example](https://github.com/user-attachments/assets/4752aebd-1a99-4c8f-910f-04bbcaa97cac)
+
+**Connected State:**
+
+![Connected State](https://github.com/user-attachments/assets/16cd1027-ef3d-4406-8994-433f72a74061)
+
+### Documentation
+
+For detailed browser compatibility documentation, see [BROWSER_COMPATIBILITY.md](BROWSER_COMPATIBILITY.md)
+
 # Links
 
 - [Discord](https://discord.gg/WeJM5FP9GG)
