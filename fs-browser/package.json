@@ -1,0 +1,8 @@
+{
+  "name": "fs-browser",
+  "version": "0.1.0",
+  "main": "index.js",
+  "types": "types.d.ts",
+  "type": "commonjs",
+  "description": "Minimal fs shim for browser environments using File System Access API"
+}
